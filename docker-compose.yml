@@ -1,0 +1,28 @@
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3307:3306"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

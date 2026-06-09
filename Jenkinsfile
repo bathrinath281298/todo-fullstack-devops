@@ -20,5 +20,23 @@ pipeline {
                 bat 'docker compose version'
             }
         }
+
+        stage('Build Images') {
+            steps {
+                bat 'docker compose build'
+            }
+        }
+
+        stage('Run Containers') {
+            steps {
+                bat 'docker compose up -d'
+            }
+        }
+
+        stage('Verify Containers') {
+            steps {
+                bat 'docker ps'
+            }
+        }
     }
-}	
+}
